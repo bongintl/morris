@@ -1,0 +1,25 @@
+div.asset {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    video {
+        width: 100%;
+        height: 100%;
+    }
+    &--cover {
+        background-size: cover;
+        video {
+            object-fit: cover;
+        }
+    }
+    &--contain {
+        background-size: contain;
+        video {
+            object-fit: contain;
+        }
+    }
+}

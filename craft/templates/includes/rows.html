@@ -1,0 +1,36 @@
+{% for row in entry.rows %}
+
+    {% if row.type == 'copy' %}
+    
+        <div class="row row__copy {% if loop.first %}row__copy--first{% endif %}">
+            {{ row.copy }}
+        </div>
+        
+    {% elseif row.type == 'image' %}
+    
+        {% for asset in row.file %}
+            <div class="row row__image">
+                {% include 'includes/asset' with { fit: 'contain' } %}
+            </div>
+        {% endfor  %}
+
+    {% elseif row.type == 'twoImage' %}
+    
+        <div class="row row__double">
+            {% for asset in row.files %}
+                {% include 'includes/asset' with { class: 'row__double--image' } %}
+            {% endfor  %}
+        </div>
+        
+    {% elseif row.type == 'quote' %}
+    
+        <div class="row row__quote">
+            {{ row.copy }}
+            <span class="row__quote--attribution">
+                {{ row.attribution }}
+            </span>
+        </div>
+        
+    {% endif %}
+
+{% endfor %}

@@ -1,0 +1,24 @@
+.panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    overflow: hidden;
+    transition: filter .3s;
+    width: calc( 100vw - 2rem );
+    @media ( min-width: $breakpoint ) {
+        width: 50%;
+    }
+    &--right {
+        transform: translateX( calc( 100vw - 2rem ) );
+        @media ( min-width: $breakpoint ) {
+            transform: translateX( 50vw );
+        }
+    }
+    &--grayscale {
+        filter: grayscale( 100 );
+    }
+    &--disabled > * {
+        pointer-events: none;
+    }
+}

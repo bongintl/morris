@@ -1,0 +1,61 @@
+{% extends "_layout" %}
+
+{% block back %}<a href="{{ siteUrl }}people">People</a>{% endblock %}
+
+
+{% set id_left = 'person-' ~ entry.id %}
+{% block left %}
+
+<div class="person">
+
+    {% set asset = entry.portrait.first() %}
+    
+    <div class="person__portrait">
+        {% include 'includes/asset' with { asset: asset } %}
+    </div>
+    
+    <div class="person__content">
+        <h2 class="person__name">{{ entry.title }}</h2>
+        
+        <div>{{ entry.role }}</div>
+        <div>{{ entry.qualification }}</div>
+        <div><a href="mailto:{{ entry.email }}"></div>{{ entry.email }}</a>
+        
+        {% if entry.twitter != '' %}
+        <div><a href="http://twitter.com/{{ entry.twitter }}" target="_blank"></div>@{{ entry.twitter }}</a>
+        {% endif %}
+        {% if entry.instagram != '' %}
+        <div><a href="http://instagram.com/{{ entry.instagram }}" target="_blank"></div>@{{ entry.twitter }}</a>
+        {% endif %}
+        {% if entry.linkedin != '' %}
+        <div><a href="{{ entry.linkedin }}" target="_blank"></div>LinkedIn</a>
+        {% endif %}
+        
+        <div class="person__copy">
+            {{ entry.copy }}
+        </div>
+        
+        <div class="person__footnote">
+            <small>{{ entry.footnote }}</small>
+        </div>
+        
+        <div class="person__work">
+            <h2>Work</h2>
+
+            {% for entry in entry.work %}
+            
+                <a href="{{ entry.url }}">{{ entry.title }}, {{ entry.location }}</a><br>
+                
+            {% endfor %}
+        </div>
+        
+    </div>
+    
+</div>
+
+{% endblock %}
+
+{% set id_left = 'person-feed-' ~ entry.id %}
+{% block right %}
+    {% include 'includes/feed.html' %}
+{% endblock %}

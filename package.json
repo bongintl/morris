@@ -1,0 +1,40 @@
+{
+  "name": "third-base",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/main.js",
+  "scripts": {
+    "build-sass": "node-sass scss/style.scss style.css",
+    "watch-sass": "npm run build-sass && onchange 'scss/*' -- npm run build-sass",
+    "build-js": "browserify js/main.js -t [ babelify --presets [ env ] ] | uglifyjs -c -m > bundle.js",
+    "transpile-js": "browserify js/main.js -t [ babelify --presets [ env ] ] -o bundle.js",
+    "watch-js": "watchify js/main.js -o bundle.js -v",
+    "build": "npm run build-sass && npm run build-js",
+    "dev": "npm run watch-sass & npm run watch-js"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.0",
+    "http-server": "^0.11.1",
+    "node-sass": "^4.7.2",
+    "node-sass-import": "^1.1.1",
+    "onchange": "^3.3.0",
+    "uglify-es": "^3.3.9",
+    "watchify": "^3.10.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "custom-event-polyfill": "^0.3.0",
+    "dat.gui": "^0.7.1",
+    "eases": "^1.0.8",
+    "fastdom": "^1.0.8",
+    "join-path": "^1.1.1",
+    "lodash": "^4.17.10",
+    "page": "^1.8.6",
+    "smoothscroll-polyfill": "^0.4.3"
+  }
+}

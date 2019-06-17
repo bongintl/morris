@@ -1,0 +1,26 @@
+{% extends "_layout" %}
+
+{% block back %}<a href="{{ siteUrl }}in-company">In company</a>{% endblock %}
+
+{% set id_right = 'person-' ~ entry.id %}
+{% block left %}
+    <div class="row row--empty"></div>
+    <div class="row">
+        {% for asset in entry.thumbnail %}
+            {% include 'includes/asset' %}
+        {% endfor  %}
+    </div>
+    
+    
+    <div class="title--inline">
+        <h1>{{ entry.title }}</h1>
+    </div>
+    
+    {% include 'includes/rows.html' %}
+    
+{% endblock %}
+
+{% set id_right = 'person-feed-' ~ entry.id %}
+{% block right %}
+    {% include 'includes/feed.html' %}
+{% endblock %}

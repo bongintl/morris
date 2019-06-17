@@ -1,0 +1,71 @@
+{% extends "_layout" %}
+
+{% block title %}
+    <h1>People</h1>
+{% endblock %}
+
+{% set id_left = 'people' %}
+{% block left %}
+    <div class="row row--empty"></div>
+
+    <ul class="list list--first">
+        <h2 class="list__title">Senior Team</h2>
+    
+        <div class="list__items">
+        {% for person in craft.entries.section('peopleEntries') %}
+                
+                {% if person.area == 'directorsAssociates' %}
+                <li class="list__item">
+                    <a href="{{ person.url }}">{{ person.title }}, {{ person.role }}</a>
+                </li>
+                {% endif %}
+            
+        {% endfor %}
+        </div>
+    </ul>
+
+    <ul class="list">
+        <h2 class="list__title">Studio Team</h2>
+    
+        <div class="list__items">
+        {% for person in craft.entries.section('peopleEntries') %}
+            
+            {% if person.area == 'studioTeam' %}
+            <li class="list__item item">
+                <a class="item__title">{{ person.title }}, {{ person.role }}</a>
+                <div class="item__content">
+                    
+                    <div class="item__portrait">
+                        {% if person.portrait | length %}
+                            {% include 'includes/asset' with { asset: person.portrait.first() } %}
+                        {% endif %}
+                    </div>
+                    {% if person.role %}{{ person.role }}<br>{% endif %}
+                    {% if person.qualification %}{{ person.qualification }}<br>{% endif %}
+                    {% if person.copy %}{{ person.copy }}{% endif %}
+                    <a href="mailto:{{ person.email }}">{{ person.email }}</a><br><br>
+                </div>
+            </li>
+            {% endif %}
+            
+        {% endfor %}
+        </div>
+        
+    </ul>
+{% endblock %}
+
+{% set id_right = 'people-feed' %}
+{% block right %}
+
+<div class="feed">
+
+
+
+    {% for entry in entry.feed %}
+        {% include 'includes/feed--item.html' %}
+    {% endfor %}
+
+
+</div>
+
+{% endblock %}

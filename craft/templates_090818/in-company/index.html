@@ -1,0 +1,55 @@
+{% extends "_layout" %}
+
+{% block title %}
+    <h1>{{ entry.title }}</h1>
+{% endblock %}
+
+
+{% set id_left = 'in-company' %}
+{% block left %}
+    <div class="row row--empty"></div>
+    <ul class="list list--first">
+        
+        
+        {% set research = craft.entries.section('research') %}
+        {% set modelshop = craft.entries.section('modelshop') %}
+    
+        
+        <h2 class="list__title">Research</h2>
+    
+        <div class="list__items">
+            {% for item in research %}
+            
+                <li class="list__item">
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                </li>
+        
+        
+            {% endfor %}
+        </div>
+    
+    </ul>
+    
+    <ul class="list">
+        
+        <h2 class="list__title">Modelshop</h2>
+        
+        <div class="list__items">
+        {% for item in modelshop %}
+        
+            <li class="list__item">
+                <a href="{{ item.url }}">{{ item.title }}</a>
+            </li>
+            
+        {% endfor %}
+        </div>
+        
+    </ul>
+
+
+{% endblock %}
+
+{% set id_right = 'in-company-feed' %}
+{% block right %}
+    {% include 'includes/feed.html' %}
+{% endblock %}

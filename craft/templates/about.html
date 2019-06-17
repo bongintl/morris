@@ -1,0 +1,20 @@
+{% extends "_layout" %}
+
+{% block title %}
+    <h1>{{ entry.title }}</h1>
+{% endblock %}
+
+{% set id_left = 'about' %}
+{% block left %}
+    <div class="row row--empty"></div>
+    {% include 'includes/rows.html' %}
+    <div class="row row__footnote">
+        <small>{{ entry.footnote }}</small>
+    </div>
+</div>
+{% endblock %}
+
+{% set id_right = 'about-feed' %}
+{% block right %}
+    {% include 'includes/feed.html' %}
+{% endblock %}

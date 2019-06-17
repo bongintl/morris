@@ -1,0 +1,93 @@
+.panels {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: calc( 200vw - 4rem );
+    transition: transform .6s;
+    // .sync-scroll & {
+    //     position: relative;
+    //     bottom: auto;
+    //     &:after {
+    //         content: '';
+    //         clear: both;
+    //         display: table;
+    //     }
+    // }
+    @media ( max-width: $breakpoint ) {
+        .route_home & {
+            transform: translateX(calc(
+                ( ( 100vw - #{ $logo-width-small } ) / 2 + #{ $logo-width-small * $plus-offset } ) -
+                ( 100vw - 2rem )
+            ));
+        }
+        .panels__panel--left > * {
+            pointer-events: visible;
+        }
+        .panels__panel--right > * {
+            pointer-events: none;
+        }
+        &--show-feed,
+        .route_home &--show-feed {
+            transform: translateX( calc( -100vw + 4rem ) );
+            .panels__panel--left > * {
+                pointer-events: none;
+            }
+            .panels__panel--right > * {
+                pointer-events: visible;
+            }
+        }
+    }
+    @media ( min-width: $breakpoint ) {
+        width: 100%;
+        transition: none;
+    }
+    &__panel {
+        position: absolute;
+        overflow: hidden;
+        height: 100%;
+        width: 50%;
+        transition: filter .3s;
+        // .sync-scroll & {
+        //     position: relative;
+        //     overflow: initial;
+        //     height: auto;
+        // }
+        &--left {
+            left: 0;
+            z-index: 1;
+            .sync-scroll & {
+                float: left;
+            }
+            body.dragging-left & {
+                filter: grayscale( 100 );
+            }
+        }
+        &--right {
+            right: 0;
+            z-index: 0;
+            .sync-scroll & {
+                float: right;
+                right: 0;
+            }
+            body.dragging-right & {
+                filter: grayscale( 100 );
+            }
+        }
+    }
+    &__toggle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: $logo-width-small * $logo-ratio;
+        height: $logo-width-small * $logo-ratio;
+        transform: translate(-50%,-50%);
+        cursor: pointer;
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        @media ( min-width: $breakpoint ) {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{% if asset.kind == 'video' %}
+
+    <video preload="auto" autoplay loop muted>
+          <source src="{{ asset.url }}" type="video/mp4">
+    </video>
+    
+{% else %}
+
+    <img class="" src="{{ asset.url }}" alt="">
+    
+{% endif %}

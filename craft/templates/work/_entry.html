@@ -1,0 +1,56 @@
+{% extends "_layout" %}
+
+{% block title %}
+    <h1>{{ entry.title }}</h1>
+{% endblock %}
+
+{% set id_left = 'work-content-' ~ entry.slug %}
+{% block left %}
+    <div class="row row--empty"></div>
+    <div class="">
+        
+        
+        {% for asset in entry.thumbnail %}
+            <div class="row row__image row__image--first">
+                {% include 'includes/asset' with { asset: asset, fit: 'cover' } %}
+            </div>
+        {% endfor  %}
+    </div>
+    
+    {% include 'includes/rows.html' %}
+    
+    <div class="row row__related">
+        
+        <div class="row__related--text">
+            
+            {% if entry.relatedResearch|length != 0 %}
+                <h2>Related research</h2>
+            
+                {% for entry in entry.relatedResearch %}
+                <a href="{{ entry.url }}">{{ entry.title }}</a><br>
+                {% endfor %}
+                
+                {% if entry.relatedWork|length == 0 %}
+                <br><br>
+                {% endif %}
+            {% endif %}
+
+            {% if entry.relatedWork|length != 0 %}
+                <h2>Related work</h2>
+                
+                {% for entry in entry.relatedWork %}
+                <a href="{{ entry.url }}">{{ entry.title }}
+                    {% if entry.thumbnail | length %}
+                        {% include 'includes/asset' with { asset: entry.thumbnail.first() } %}
+                    {% endif %}
+                </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% set id_right = 'work-feed-' ~ entry.slug %}
+{% block right %}
+    {% include 'includes/feed.html' %}
+{% endblock %}

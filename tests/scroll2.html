@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Morris + Company</title>
+    <style type="text/css">
+        @font-face {
+            src: url(Everett-Regular-web.ttf);
+            font-family: everett
+        }
+        * { margin: 0; font-family: everett; }
+        body { overflow: hidden }
+        .title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            pointer-events: none;
+        }
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 104px;
+            font-weight: normal;
+        }
+        .left, .right {
+            position: fixed;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .right { 
+            right: 0; 
+            background-image: url('pattern.png');
+            background-size: contain;
+            
+        }
+        .scroller {
+            min-width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+        .content {
+            width: 100%;
+        }
+        img { width: 100%; padding-top: 50vh; }
+        .scrollbar {
+            position: absolute;
+            width: 10px;
+            margin: 2px;
+            border-radius: 5px;
+            background: rgba(0,0,0,0.1);
+        }
+        .right .scrollbar { right: 0; }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="scroller">
+            <div class="content">
+                <img src="left.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="scroller">
+            <div class="content">
+                <img src="right.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="title">
+        <h1>R7</h1>
+    </div>
+    
+    <script>
+        var title = document.querySelector('.title');
+        var tops = [ 0, 0 ];
+        var scrolls = [ ...document.querySelectorAll('.scroller') ];
+        var contents = [ ...document.querySelectorAll('.content') ];
+        var scrollTo = ( side, y ) => {
+            y = Math.max( Math.min( y, contents[ side ].offsetHeight - window.innerHeight ), 0 )
+            contents[ side ].style.transform = `translateY( ${ -y }px )`;
+            tops[ side ] = y;
+            title.style.transform = `translateY(${ -Math.max( ...tops ) }px)`;
+        }
+        var scrollBy = ( side, y ) => scrollTo( side, tops[ side ] + y );
+        scrolls.forEach( ( el, side ) => el.addEventListener( 'wheel', e => {
+            var delta = e.deltaY;
+            var other = 1 - side;
+            if ( tops[ side ] <= window.innerHeight / 2 ) {
+                if ( tops[ other ] > window.innerHeight / 2 ) {
+                    scrollBy( other, delta );
+                } else {
+                    scrollBy( side, delta );
+                    scrollBy( other, delta );
+                }
+            } else {
+                scrollBy( side, delta );
+            }
+        }))
+    </script>
+</body>
+</html>

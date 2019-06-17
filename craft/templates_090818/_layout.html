@@ -1,0 +1,107 @@
+{#
+ # Layout template
+ # ---------------
+ #
+ # This template defines your site’s global layout. It can be
+ # “extended” by other templates to fill in the gaps.
+ #
+ # See Twig’s Template Inheritance documentation for more details:
+ # http://twig.sensiolabs.org/doc/templates.html#template-inheritance
+ #}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+	<base href="{{ siteUrl }}">
+	<meta charset="utf-8" />
+	<title>{% if title is defined %}{{ title }} - {% endif %}{{ siteName }}</title>
+	<link rel="home" href="{{ siteUrl }}" />
+	<link rel="stylesheet" href="{{ siteUrl }}style.css">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	
+	<meta name="description" content="{{ meta.description }}">
+	
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="{{ siteName }}" />
+	<meta property="og:url" content="{{ craft.request.getUrl() }}" />
+	<meta property="og:description" content="{{ meta.metaDescription }}" />
+	{% if meta.metaImage | length %}<meta property="og:image" content="{{ meta.metaImage.first.url }}" />{% endif %}
+	
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="{{ siteName }}">
+	<meta name="twitter:url" content="{{ craft.request.getUrl() }}">
+	<meta name="twitter:creator" content="@{{ meta.metaTwitter | split( '/' ) | slice( -1 ) }}" />
+	<meta name="twitter:description" content="{{ meta.metaDescription }}">
+	{% if meta.metaImage | length %}<meta name="twitter:image" content="{{ meta.metaImage.first.url }}">{% endif %}
+	
+	{% if meta.favicon16 | length %}<link rel="icon" href="{{ globals.favicon16.first.url }}" sizes="16x16">{% endif %}
+    {% if meta.favicon32 | length %}<link rel="icon" href="{{ globals.favicon32.first.url }}" sizes="32x32">{% endif %}
+    
+	<script
+	  src="https://code.jquery.com/jquery-3.3.1.min.js"
+	  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	  crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.js"></script>
+</head>
+{% set intro = true or craft.request.firstSegment == '' %}
+<body class="cloak {{ intro ? 'intro' : '' }}">
+	<div class="panel panel--left">
+		<div id="{{ id_left | default('') }}" class="page">
+			<div class="page__scrollbar"></div>
+			<div class="page__content">
+				{% block left %}{% endblock %}
+			</div>
+		</div>
+	</div>
+	<div class="panel panel--right">
+		<div id="{{ id_right | default('') }}" class="page">
+			<div class="page__scrollbar"></div>
+			<div class="page__content">
+				{% block right %}{% endblock %}
+			</div>
+		</div>
+	</div>
+	<!--<div class="toggle">-->
+	<!--	{% include 'includes/plus.html' %}-->
+	<!--</div>-->
+	<!--</div>-->
+	<div class="title">
+		{% block title %}{% endblock %}
+	</div>
+
+	<div class="divider">
+		<div class="divider__back">
+			{% block back %}
+				<a href="{{ siteUrl }}">{% include 'includes/logo.html' %}</a>
+			{% endblock %}
+		</div>
+		<div class="divider__handle">
+			{% include 'includes/logo.html' %}
+		</div>
+		<div class="divider__toggle">
+			{% include 'includes/logo.html' %}
+		</div>
+	</div>
+	{% if intro %}
+		{% include 'includes/slider.html' %}
+	{% endif %}
+
+	<script src="https://maps.googleapis.com/maps/api/js?key={{ craft.simpleMap.apiKey }}"></script>
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch"></script>
+
+	
+	<script type="text/javascript" src="{{ siteUrl }}bundle.js"></script>
+	
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122236445-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'UA-122236445-1');
+	</script>
+
+</body>
+</html>

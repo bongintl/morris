@@ -1,0 +1,25 @@
+
+{% set img = entry.image[0] ?? '' %}
+<div class="feed__item{% if img == '' %} feed__item--textonly{% endif %}{% if loop.index % 2 == 0 %} feed__item--even{% endif %}">
+    
+    <div class="feed__container">
+
+
+
+    {% if img %}
+        {% set orient = img.width <= img.height ? 'portrait' : 'landscape' %}
+        <div class="feed__image feed__image--{{ orient }}">
+            {% include 'includes/asset' with { asset: img, fit: 'contain' } %}
+        </div>
+    {% endif %}
+    
+    
+    {% if entry.feedLink != '' %}<a href="{{ entry.feedLink }}" target="_blank">{% endif %}
+    
+        <strong>{{ entry.title }}</strong>
+        {{ entry.feedBody }}
+    
+    {% if entry.feedLink != '' %}</a>{% endif %}
+
+    </div>
+</div>

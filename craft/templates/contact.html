@@ -1,0 +1,34 @@
+{% extends "_layout" %}
+
+{% block back %}{% endblock %}
+
+{% set id_left = 'menu' %}
+{% block left %}
+    {% include 'includes/menu' %}
+{% endblock %}
+
+{% set id_right = 'contact' %}
+{% block right %}
+    <div class="contact">
+        {% for item in entry.contactLocation %}
+            <div class="contact__address{% if loop.last %} contact__address--last{% endif %}">
+                {{ item.address }}
+                <a href="mailto:{{ item.email }}">{{ item.email }}</a>
+            </div>
+        {% endfor %}
+    {% for item in entry.contactLocation %}
+        <div
+            class="contact__map"
+            data-lat="{{ item.map.lat }}"
+            data-lng="{{ item.map.lng }}"
+            data-zoom="{{ item.map.zoom }}"
+        ></div>
+    {% endfor %}
+        <div class="row row__footnote">
+            <small>
+                Morris + Company is committed to collecting and using personal information responsibly, proportionately, securely and fairly. If you would like further information on our Privacy Policy in relation to GDPR, please contact <a href="mailto:c.sorensen@morrisand.company">c.sorensen@morrisand.company</a>
+            </small>
+        </div>
+        <div>&nbsp;</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,100 @@
+.person {
+    &__portrait {
+        height: 50vh;
+        
+        @media (max-width: $breakpoint) {
+            height: 60vh;
+        }
+        
+        img {
+            height: 100%;
+            width: auto;
+            
+            @media (max-width: $breakpoint) {
+                // width: 100%;   
+            }
+        }
+        
+        
+    }
+    
+    &__name {
+        margin-bottom: 1rem;
+        padding: 0;
+    }
+    
+    &__name, &__work h2 {
+        font-size: 47px;
+        font-weight: 300;
+    }
+    
+    &__content {
+        margin: 20px;
+        .page--large & {
+            font-size: 25px;
+        }
+
+        .page--medium & {
+            font-size: 25px;
+        }
+        
+        .page--small & {
+            font-size: 15px;
+            
+            @media (max-width: $breakpoint) {
+                font-size: 21px;
+            }
+        }
+    }
+    
+    &__copy {
+        margin-top: 1em;
+        
+        .page--large & {
+            p:not(:first-child) {
+                text-indent: 25px;
+            }
+        }
+
+        .page--medium & {
+            p:not(:first-child) {
+                text-indent: 25px;
+            }
+        }
+        
+        .page--small & {
+            p:not(:first-child) {
+                text-indent: 15px;
+            }
+        }
+    }
+    
+    &__work {
+        margin-top: 3em;
+        
+        a, 
+        span {
+            .page--large & {
+                margin-left: 25px;
+            }
+    
+            .page--medium & {
+                margin-left: 25px;
+            }
+            
+            .page--small & {
+                margin-left: 15px;
+            }
+        
+        }
+    }
+    
+    &__footnote {
+        margin: 20px 0;
+        small {
+            display: block;
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+    }
+}

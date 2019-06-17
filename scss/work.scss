@@ -1,0 +1,26 @@
+.work {
+    padding-top: 20px;
+    overflow: auto;
+    background-color: $bg-home;
+    min-height: 100vh;
+    a {
+        color: black;
+    }
+    
+    // .page--large & {
+    //     padding-right: 20px;
+    // }
+    
+    // .page--medium & {
+    //     padding-right: 20px;
+    // }
+    
+    .page--small & {
+        padding-right: 0px;
+        
+        @media (max-width: $breakpoint) {
+            padding-right: 20px;
+        }
+        
+    }
+}

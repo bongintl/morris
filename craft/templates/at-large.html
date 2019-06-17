@@ -1,0 +1,54 @@
+{% extends "_layout" %}
+
+{% block back %}
+    <a href="{{ siteUrl }}">{% include 'includes/logo.html' %}</a>
+{% endblock %}
+
+{% block title %}
+    <h1>{{ entry.title }}</h1>
+{% endblock %}
+
+{% set id_left="at-large" %}
+{% block left %}
+    <div class="row row--empty"></div>
+    {% for item in entry.pageRows %}
+    
+        <ul class="list{% if loop.first %} list--first{% endif %}">
+    
+            <h2 class="list__title">{{ item.rowTitle }}</h2>
+        
+            <div class="list__items list__items--nopad">
+                <li class="list__content">
+                    {{ item.rowCopy }}
+                </li>
+            </div>        
+        </ul>
+    {% endfor %}
+    
+    <ul class="list">
+        <h2 class="list__title">Awards</h2>
+        <div class="list__items list__items--nopad">
+        {% for item in entry.awards %}
+    
+            {% if item.type == 'heading' %}
+            <li class="list__item item__title">
+                {{ item.heading }}
+            </li>
+            {% elseif item.type == 'links' %}
+                
+                <div class="item__content item__content--indent">
+                    {{ item.links }}
+                </div>        
+                
+            {% endif %}
+        
+        {% endfor %}
+        </div>
+    </ul>
+    <div class="row row--empty"></div>
+{% endblock %}
+
+{% set id_left="at-large-feed" %}
+{% block right %}
+    {% include 'includes/feed.html' %}
+{% endblock %}

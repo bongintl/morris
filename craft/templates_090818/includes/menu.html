@@ -1,0 +1,33 @@
+<div class="menu">
+    <div class="menu__main" data-style="font-size: 7vmin">
+        <div class="menu__accordion" id="menu-accordion-0">
+            <a class="menu__title" href="/" data-category-filter=""><span>Work</span></a>
+            <div class="menu__items">
+                {% for category in craft.categories.group('categories') %}
+                    <a class="menu__item" data-category-filter='{{ category.slug }}'><span>{{ category.title }}</span></a>
+                {% endfor %}
+                <input type="text" class="menu__search" required="required"/>
+            </div>
+        </div>
+        <a class="menu__spacer">&nbsp;</a>
+        <div class="menu__accordion" id="menu-accordion-1">
+            <a class="menu__title" data-category-filter=""><span>Company</span></a>
+            <div class="menu__items">
+                <a class="menu__item" href="{{ craft.entries.section('about').first().url }}"><span>About</span></a>
+                <a class="menu__item" href="/people"><span>People</span></a>
+                <a class="menu__item" href="/in-company"><span>In company</span></a>
+                <a class="menu__item" href="{{ craft.entries.section('atLarge').first().url }}"><span>At large</span></a>
+                <a class="menu__item" href="{{ craft.entries.section('contact').first().url }}" href=""><span>Contact</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="menu__social">
+        <a href="{{ meta.metaTwitter }}" class="menu__social--icon" target="_blank">{% include 'includes/icons/insta.html' %}</a>
+        <a href="{{ meta.metaInstagram }}" class="menu__social--icon" target="_blank">{% include 'includes/icons/fb.html' %}</a>
+        <br>
+        <span>
+        <a href="mailto:{{ meta.metaEmail }}">{{ meta.metaEmail }}</a><br>
+        +44 (0)20 7566 7440
+        </span>
+    </div>
+</div>

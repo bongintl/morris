@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Morris + Company</title>
+    <style type="text/css">
+        @font-face {
+            src: url(Everett-Regular-web.ttf);
+            font-family: everett
+        }
+        * { margin: 0; font-family: everett; }
+        .title {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50vh;
+            pointer-events: none;
+        }
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size: 104px;
+            font-weight: normal;
+        }
+        .left, .right {
+            position: fixed;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .right { 
+            right: 0; 
+            background-image: url('pattern.png');
+            background-size: contain;
+            
+        }
+        .scroller {
+            min-width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            margin-right: -20px;
+        }
+        .content {
+            width: 100%;
+            padding-right: 20px;
+        }
+        img { width: 100%; padding-top: 50vh; }
+        .scrollbar {
+            position: absolute;
+            width: 10px;
+            margin: 2px;
+            border-radius: 5px;
+            background: rgba(0,0,0,0.1);
+        }
+        .right .scrollbar { right: 0; }
+    </style>
+</head>
+<body>
+    <div class="left">
+        <div class="scrollbar"></div>
+        <div class="scroller">
+            <div class="content">
+                <img src="left.jpg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="scrollbar"></div>
+        <div class="scroller">
+            <div class="content">
+                <img src="right.png" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="title">
+        <h1>R7</h1>
+    </div>
+
+    <script>
+        var title = document.querySelector('.title');
+        var scrolls = [ ...document.querySelectorAll('.scroller') ];
+        var contents = [ ...document.querySelectorAll('.content') ];
+        var scrollbars = [ ...document.querySelectorAll('.scrollbar') ];
+        var update = () => {
+            var rects = contents.map( el => el.getBoundingClientRect() )
+            var top = Math.min( ...rects.map( r => r.top ) );
+            title.style.transform = `translateY(${ top }px)`;
+            scrolls.forEach( ( el, i ) => {
+                var scrollbar = scrollbars[ i ];
+                var scrollHeight = rects[ i ].height - window.innerHeight;
+                var scrollbarHeight = ( window.innerHeight / scrollHeight ) * window.innerHeight;
+                scrollbar.style.height = scrollbarHeight + 'px';
+                var y = ( -rects[ i ].top / scrollHeight )
+                scrollbar.style.transform = `translateY(${ y * ( window.innerHeight - scrollbarHeight ) }px)`;
+            })
+        }
+        scrolls.forEach( el => el.addEventListener( 'scroll', update ) );
+        update();
+    </script>
+</body>
+</html>

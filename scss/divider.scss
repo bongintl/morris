@@ -1,0 +1,141 @@
+.divider {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    z-index: 100;
+    // transform: translateX( calc( 100vw - 2rem ) );
+    // @media ( min-width: $breakpoint ) {
+    //     transform: translateX( 50vw );
+    // }
+    body.intro & {
+        pointer-events: none;
+    }
+    @media ( min-width: $breakpoint ) {
+        transform: translateX( #{ $plus-offset * -100% } );
+    }
+    &__handle {
+        position: absolute;
+        top: 50%;
+        // transform: translate( -50%, -50% );
+        cursor: pointer;
+        width: calc( 75vw * #{ $logo-ratio } );
+        height: calc( 75vw * #{ $logo-ratio } );
+        @media ( min-width: $breakpoint ) {
+            cursor: grab;
+            cursor: -webkit-grab;
+            cursor: -moz-grab;
+            // &:hover svg {
+            //     .logo__morris,
+            //     .logo__company {
+            //         opacity: 1;
+            //         transition: opacity .5s .15s;
+            //     }
+            // }
+        }
+        
+        // .plus-color & {
+        //     .logo__plus {
+        //         transition: fill .6s;
+        //         // fill: black
+        //     }
+        //     &:hover .logo__plus {
+        //         fill: #D4B9A8;
+        //     }
+        // }
+        // .plus-grow & {
+        // }
+        svg {
+            position: absolute;
+            left: 50%;
+            pointer-events: none;
+            height: 100%;
+            transform: translateX( #{ $plus-offset * -100% } );
+            width: 75vw;
+            height: auto;
+            transition: transform .6s;
+            transform-origin: $plus-offset * 100% 50%;
+            .logo__morris,
+            .logo__company {
+                transition: opacity .5s;
+                opacity: 0;
+                body.intro & {
+                    opacity: 1;
+                }
+            }
+        }
+        &:hover svg {
+            transform: translateX( #{ $plus-offset * -100% } ) scale(1.2,1.2);
+        }
+    }
+    &__toggle {
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        @media ( min-width: $breakpoint ) {
+            display: none;
+        }
+    }
+    &__back {
+        position: fixed;
+        top: 1.6em;
+        left: 50%;
+        height: 1.2em;
+        font-size: 25px;
+        a {
+            position: absolute;
+            left: 0;
+            transition: opacity 1s;
+            transform: translateX( -50% );
+            color: black;
+            white-space: nowrap;
+            svg {
+                @media ( min-width: $breakpoint ) {
+                    transform: translateX( 50% ) translateX( #{ $plus-offset * -100% } );
+                }
+                width: 240px;
+            }
+            .intro & {
+                opacity: 0;
+            }
+        }
+        @media ( max-width: $breakpoint ) {
+            transform: translate(-50%, -50%);
+        }
+        @media ( min-width: $breakpoint ) {
+            // transform: translateX( #{ $plus-offset * -100% } );
+            position: absolute;
+            left: 0;
+        }
+        
+        // position: fixed;
+        // top: 1rem;
+        // left: 50%;
+        // transition: opacity 1s;
+        // height: 1.2em;
+        // font-size: 25px;
+
+        // svg {
+        //     width: 240px;
+        // }
+        
+        // body.intro & {
+        //     opacity: 0;
+        // }
+        // a {
+        //     position: absolute;
+        //     left: 0;
+        //     transition: opacity 1s;
+        //     transform: translateX( -50% );
+        //     color: black;
+        //     white-space: nowrap;
+        // }
+        // @media ( min-width: $breakpoint ) {
+        //     transform: translateX( #{ $plus-offset * -100% } );
+        //     position: absolute;
+        //     left: 0;
+        // }
+    }
+}

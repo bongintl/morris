@@ -1,0 +1,35 @@
+{% set classes = [
+    class | default( '' ),
+    'asset',
+    "asset--#{ asset.kind }",
+    fit is defined ? "asset--#{ fit }" : ''
+] | join(' ') %}
+{% switch asset.kind %}
+    {% case 'image' %}
+        {% set src = asset.getURL('xsmall') %}
+        {% set srcset = [] %}
+        {% set naturalWidth = asset.width %}
+        {% for transform in [ 'xsmall', 'small', 'medium', 'large', 'xlarge' ] %}
+            {% set w = asset.getWidth( transform ) %}
+            {% if w <= naturalWidth %}
+                {% set url = asset.getURL( transform ) %}
+                {% set srcset = srcset | merge([ "#{ url } #{ w }w" ]) %}
+            {% endif %}
+        {% endfor %}
+        {% set srcset = srcset | join(', ') %}
+        {% if fit is defined %}
+            <div class="{{ classes }}" style="background-image: url({{ src }})" data-srcset="{{ srcset }}"></div>
+        {% else %}
+            <img class="{{ classes }}" src="{{ src }}" data-srcset="{{ srcset }}">
+        {% endif %}
+    {% case 'video' %}
+        {% if fit is defined %}
+            <div class="{{ classes }}">
+                <video src="{{ asset.url }}" autoplay loop muted playsinline></video>
+            </div>
+        {% else %}
+            <video class="{{ classes }}" src="{{ asset.url }}" autoplay loop muted playsinline></video>
+        {% endif %}
+    {% default %}
+        Unknown asset type: {{ asset.kind }}
+{% endswitch %}

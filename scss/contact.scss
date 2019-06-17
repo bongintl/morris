@@ -1,0 +1,32 @@
+.contact {
+    background-color: $bg_home;
+    padding-top: 20px;
+    font-weight: 300;
+    min-height: 50vh;
+
+    .page--large & {
+        font-size: 27px;
+    }
+
+    .page--medium & {
+        font-size: 25px;
+    }
+    
+    .page--small & {
+        font-size: 15px;
+    }
+        
+    &__address {
+        padding: 0 10px 1em 10px;
+        
+        &--last {
+            margin-bottom: 80px;
+        }
+    }
+    
+    &__map {
+        margin: 0;
+        height: 50vh;
+        top: 0;
+    }
+}

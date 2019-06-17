@@ -1,0 +1,44 @@
+.item {
+    &__content {
+        display: none;
+        font-weight: 300;
+        .page--large & {
+            margin-left: 40px;
+        }
+
+        .page--medium & {
+            margin-left: 30px;
+        }
+        
+        .page--small & {
+            margin-left: 20px;
+        }
+        
+        &--indent {
+            font-weight: 300;
+            
+            .page--large & {
+                font-size: 27px;
+                margin-left: 70px;
+            }
+    
+            .page--medium & {
+                font-size: 25px;
+                margin-left: 50px;
+            }
+            
+            .page--small & {
+                font-size: 15px;
+                margin-left: 30px;
+                
+                @media (max-width: $breakpoint) {
+                    font-size: 21px;
+                }
+            }
+        }
+    }
+    
+    &__portrait {
+        max-width: 200px;
+    }
+}
